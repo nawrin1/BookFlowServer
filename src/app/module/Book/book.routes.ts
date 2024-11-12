@@ -9,5 +9,6 @@ router.post('/',BookController.createBooking)
 router.get('/',BookController.getAllBooking)
 router.get('/:bookId',BookController.getSingleBook)
 router.put('/:bookId',BookController.updateSingleBook)
+router.delete('/:bookId',BookController.deleteSingleBook)
 
 export const BookRoutes=router;

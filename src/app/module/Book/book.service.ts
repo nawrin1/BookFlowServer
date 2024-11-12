@@ -53,6 +53,27 @@ const updateSingleBookFromDB=async(id:any,data:Partial<BookTable>):Promise<BookT
     console.log(result,"update single book data")
     return result
 
+}
+const deleteSingleBookFromDB=async(id:any)=>{
+
+
+    await prisma.bookTable.findUniqueOrThrow({
+        where:{
+            bookId:id
+        }
+    })
+
+    const result=await prisma.bookTable.delete({
+        where:{
+            bookId:id
+        }
+       
+    })
+
+
+    
+    return result
+
 
 
 }
@@ -76,6 +97,7 @@ export const BookService ={
     getAllBookFromDB,
     getSingleBookFromDB,
     createBookingDB,
-    updateSingleBookFromDB
+    updateSingleBookFromDB,
+    deleteSingleBookFromDB
    
 }

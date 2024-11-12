@@ -1,20 +1,30 @@
 import { Response } from "express"
-import { json } from "stream/consumers";
+
 
 const sendResponse = <T>(res: Response, jsonData: {
     statusCode: number,
     success: boolean,
     message: string,
     
-    data: T | null | undefined
+    data?: T | null | undefined
 }) => {
-    res.status(jsonData.statusCode).json({
-        success: jsonData.success,
-        status:jsonData.statusCode,
-        message: jsonData.message,
-        
-        data: jsonData.data || null || undefined
-    })
+    {
+        jsonData?.data? res.status(jsonData.statusCode).json({
+            success: jsonData.success,
+            status:jsonData.statusCode,
+            message: jsonData.message,
+            
+            data: jsonData?.data || null || undefined
+        }):
+        res.status(jsonData.statusCode).json({
+            success: jsonData.success,
+            status:jsonData.statusCode,
+            message: jsonData.message,
+            
+           
+        })
+    }
+    
 }
 
 export default sendResponse;
