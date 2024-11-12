@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { BookTable, PrismaClient } from "@prisma/client";
 
 
 
@@ -33,6 +33,29 @@ const getSingleBookFromDB=async(id:any)=>{
 
 
 }
+const updateSingleBookFromDB=async(id:any,data:Partial<BookTable>):Promise<BookTable>=>{
+
+
+    await prisma.bookTable.findUniqueOrThrow({
+        where:{
+            bookId:id
+        }
+    })
+
+    const result=await prisma.bookTable.update({
+        where:{
+            bookId:id
+        },
+        data
+    })
+
+
+    console.log(result,"update single book data")
+    return result
+
+
+
+}
 const createBookingDB=async(bookData:any )=>{
 
 
@@ -44,8 +67,6 @@ const createBookingDB=async(bookData:any )=>{
     console.log(result,"Bookcreate servicedata")
     return result
 
-
-
 }
 
 
@@ -54,6 +75,7 @@ const createBookingDB=async(bookData:any )=>{
 export const BookService ={
     getAllBookFromDB,
     getSingleBookFromDB,
-    createBookingDB
+    createBookingDB,
+    updateSingleBookFromDB
    
 }
