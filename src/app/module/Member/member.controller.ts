@@ -30,19 +30,19 @@ const getAllMembers: RequestHandler = catchAsync(async (req: Request, res: Respo
         data: result
     })
 })
-// const getSingleBook: RequestHandler = catchAsync(async (req: Request, res: Response) => {
-//     const {bookId}=req.params
+const getSingleMember: RequestHandler = catchAsync(async (req: Request, res: Response) => {
+    const {memberId}=req.params
     
    
-//     const result = await BookService.getSingleBookFromDB(bookId)
+    const result = await MemberService.getSingleMemberDB(memberId)
 
-//     sendResponse(res, {
-//         statusCode: 200,
-//         success: true,
-//         message: "Book retrieved successfully",
-//         data: result
-//     })
-// })
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: "Member retrieved successfully",
+        data: result
+    })
+})
 // const updateSingleBook: RequestHandler = catchAsync(async (req: Request, res: Response) => {
 //     const {bookId}=req.params
     
@@ -73,6 +73,7 @@ const getAllMembers: RequestHandler = catchAsync(async (req: Request, res: Respo
 
 export const MemberController={
     getAllMembers,
-    createMember
+    createMember,
+    getSingleMember
     
 }

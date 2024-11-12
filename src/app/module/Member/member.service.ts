@@ -17,22 +17,22 @@ const getAllMembersFromDB=async()=>{
 }
 
 
-// const getSingleBookFromDB=async(id:any)=>{
+const getSingleMemberDB=async(id:any)=>{
 
 
-//     const result=await prisma.bookTable.findUniqueOrThrow({
-//         where:{
-//             bookId:id
-//         }
-//     })
+    const result=await prisma.memberTable.findUniqueOrThrow({
+        where:{
+            memberId:id
+        }
+    })
 
 
-//     console.log(result,"single book data")
-//     return result
+    console.log(result,"single member data")
+    return result
 
 
 
-// }
+}
 // const updateSingleBookFromDB=async(id:any,data:Partial<BookTable>):Promise<BookTable>=>{
 
 
@@ -95,6 +95,7 @@ const createMemberDB=async(memberData:any )=>{
 
 export const MemberService ={
     getAllMembersFromDB,
-    createMemberDB
+    createMemberDB,
+    getSingleMemberDB
    
 }
