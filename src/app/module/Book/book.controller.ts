@@ -29,8 +29,22 @@ const getAllBooking: RequestHandler = catchAsync(async (req: Request, res: Respo
         data: result
     })
 })
+const getSingleBook: RequestHandler = catchAsync(async (req: Request, res: Response) => {
+    const {bookId}=req.params
+    
+   
+    const result = await BookService.getSingleBookFromDB(bookId)
+
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: "Book retrieved successfully",
+        data: result
+    })
+})
 
 export const BookController={
     createBooking,
-    getAllBooking
+    getAllBooking,
+    getSingleBook
 }

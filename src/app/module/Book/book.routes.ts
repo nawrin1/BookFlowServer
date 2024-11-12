@@ -7,5 +7,6 @@ const router=express.Router()
 
 router.post('/',BookController.createBooking)
 router.get('/',BookController.getAllBooking)
+router.get('/:bookId',BookController.getSingleBook)
 
 export const BookRoutes=router;

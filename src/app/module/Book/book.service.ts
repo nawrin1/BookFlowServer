@@ -15,6 +15,24 @@ const getAllBookFromDB=async()=>{
 
 
 }
+
+
+const getSingleBookFromDB=async(id:any)=>{
+
+
+    const result=await prisma.bookTable.findUniqueOrThrow({
+        where:{
+            bookId:id
+        }
+    })
+
+
+    console.log(result,"single book data")
+    return result
+
+
+
+}
 const createBookingDB=async(bookData:any )=>{
 
 
@@ -35,6 +53,7 @@ const createBookingDB=async(bookData:any )=>{
 
 export const BookService ={
     getAllBookFromDB,
+    getSingleBookFromDB,
     createBookingDB
    
 }
