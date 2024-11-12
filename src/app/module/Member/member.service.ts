@@ -1,4 +1,4 @@
-import {  PrismaClient } from "@prisma/client";
+import {  MemberTable, PrismaClient } from "@prisma/client";
 
 
 
@@ -33,50 +33,53 @@ const getSingleMemberDB=async(id:any)=>{
 
 
 }
-// const updateSingleBookFromDB=async(id:any,data:Partial<BookTable>):Promise<BookTable>=>{
+const updateSingleMemberFromDB=async(id:any,data:Partial<MemberTable>)=>{
 
 
-//     await prisma.bookTable.findUniqueOrThrow({
-//         where:{
-//             bookId:id
-//         }
-//     })
+    await prisma.memberTable.findUniqueOrThrow({
+        where:{
+           memberId:id
+        }
+    })
 
-//     const result=await prisma.bookTable.update({
-//         where:{
-//             bookId:id
-//         },
-//         data
-//     })
+    const result=await prisma.memberTable.update({
+        where:{
+          memberId:id
+        },
+        data
+    })
 
-
-//     console.log(result,"update single book data")
-//     return result
-
-// }
-// const deleteSingleBookFromDB=async(id:any)=>{
+   
+     const { membershipDate,...other }=result;
 
 
-//     await prisma.bookTable.findUniqueOrThrow({
-//         where:{
-//             bookId:id
-//         }
-//     })
+ 
+    return other
 
-//     const result=await prisma.bookTable.delete({
-//         where:{
-//             bookId:id
-//         }
+}
+const deleteSingleMemberFromDB=async(id:any)=>{
+
+
+    await prisma.memberTable.findUniqueOrThrow({
+        where:{
+           memberId:id
+        }
+    })
+
+    const result=await prisma.memberTable.delete({
+        where:{
+            memberId:id
+        }
        
-//     })
+    })
 
 
     
-//     return result
+    return result
 
 
 
-// }
+}
 const createMemberDB=async(memberData:any )=>{
 
 
@@ -96,6 +99,8 @@ const createMemberDB=async(memberData:any )=>{
 export const MemberService ={
     getAllMembersFromDB,
     createMemberDB,
-    getSingleMemberDB
+    getSingleMemberDB,
+    updateSingleMemberFromDB,
+    deleteSingleMemberFromDB
    
 }

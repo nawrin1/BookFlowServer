@@ -43,37 +43,39 @@ const getSingleMember: RequestHandler = catchAsync(async (req: Request, res: Res
         data: result
     })
 })
-// const updateSingleBook: RequestHandler = catchAsync(async (req: Request, res: Response) => {
-//     const {bookId}=req.params
+const updateSingleMember: RequestHandler = catchAsync(async (req: Request, res: Response) => {
+    const {memberId}=req.params
     
    
-//     const result = await BookService.updateSingleBookFromDB(bookId,req.body)
+    const result = await MemberService.updateSingleMemberFromDB(memberId,req.body)
 
-//     sendResponse(res, {
-//         statusCode: 200,
-//         success: true,
-//         message: "Book updated successfully",
-//         data: result
-//     })
-// })
-// const deleteSingleBook: RequestHandler = catchAsync(async (req: Request, res: Response) => {
-//     const {bookId}=req.params
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: "Member updated successfully",
+        data: result
+    })
+})
+const deleteSingleMember: RequestHandler = catchAsync(async (req: Request, res: Response) => {
+    const {memberId}=req.params
     
    
-//     const result = await BookService.deleteSingleBookFromDB(bookId)
+    const result = await MemberService.deleteSingleMemberFromDB(memberId)
 
-//     sendResponse(res, {
-//         statusCode: 200,
-//         success: true,
-//         message: "Book successfully deleted", 
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: "Member successfully deleted", 
 
        
-//     })
-// })
+    })
+})
 
 export const MemberController={
     getAllMembers,
     createMember,
-    getSingleMember
+    getSingleMember,
+    updateSingleMember,
+    deleteSingleMember
     
 }
