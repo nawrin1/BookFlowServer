@@ -8,6 +8,7 @@ const router=express.Router()
 
 
 router.post('/',BorrowController.postBorrowBook)
+router.get('/overdue',BorrowController.overdueBorrowBook)
 
 
 export const BorrowRoutes=router;
