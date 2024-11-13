@@ -1,4 +1,4 @@
-import express,{ Application, Request, Response } from "express";
+import express,{ Application, NextFunction, Request, Response } from "express";
 import cors from 'cors';
 import router from "./app/routes";
 
@@ -12,5 +12,16 @@ app.get('/', (req: Request, res: Response) => {
         Message: "Bookflow api running..."
     })
 }) 
+
+
+app.use((req: Request, res: Response, next: NextFunction) => { 
+    res.status(404).json({
+        success: false,
+        status:404,
+        message: "API NOT FOUND!"
+       
+    })
+})
+
 
 export default app;
