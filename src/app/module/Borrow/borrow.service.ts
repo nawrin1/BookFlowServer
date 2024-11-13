@@ -1,6 +1,7 @@
 import {  PrismaClient } from "@prisma/client";
 
 import moment from "moment";
+import AppError from "../../errors/AppError";
 
 const prisma= new PrismaClient()
 
@@ -9,16 +10,29 @@ const postBorrowBookDB=async(bookBorrowData:any )=>{
 
 
     const result = await prisma.$transaction(async (transactionClient) => {
-        await prisma.bookTable.findUniqueOrThrow({
+    const book= await prisma.bookTable.findUnique({
             where: {
               bookId: bookBorrowData.bookId,
             },
           });
-           await prisma.memberTable.findUniqueOrThrow({
+    if(!book){
+      throw new AppError(400,"Invalid Book Id")
+    }
+
+    if(book.availableCopies<=0){
+      throw new AppError(400,"No available copies")
+
+    }
+
+     const member= await prisma.memberTable.findUnique({
             where: {
               memberId:bookBorrowData.memberId,
             },
           });
+    if(!member){
+            throw new AppError(400,"Invalid Member Id")
+          }
+
 
 
       

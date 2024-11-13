@@ -1,4 +1,5 @@
 import { BookTable, PrismaClient } from "@prisma/client";
+import AppError from "../../errors/AppError";
 
 
 
@@ -20,11 +21,14 @@ const getAllBookFromDB=async()=>{
 const getSingleBookFromDB=async(id:any)=>{
 
 
-    const result=await prisma.bookTable.findUniqueOrThrow({
+    const result=await prisma.bookTable.findUnique({
         where:{
             bookId:id
         }
     })
+    if(!result){
+        throw new AppError(400,"Invalid Book Id") 
+    }
 
 
     console.log(result,"single book data")
@@ -36,11 +40,15 @@ const getSingleBookFromDB=async(id:any)=>{
 const updateSingleBookFromDB=async(id:any,data:Partial<BookTable>):Promise<BookTable>=>{
 
 
-    await prisma.bookTable.findUniqueOrThrow({
+    const book=await prisma.bookTable.findUnique({
         where:{
             bookId:id
         }
     })
+    if(!book){
+        throw new AppError(400,"Invalid Book Id") 
+    }
+
 
     const result=await prisma.bookTable.update({
         where:{
@@ -57,11 +65,14 @@ const updateSingleBookFromDB=async(id:any,data:Partial<BookTable>):Promise<BookT
 const deleteSingleBookFromDB=async(id:any)=>{
 
 
-    await prisma.bookTable.findUniqueOrThrow({
+    const book=await prisma.bookTable.findUnique({
         where:{
             bookId:id
         }
     })
+    if(!book){
+        throw new AppError(400,"Invalid Book Id") 
+    }
 
     const result=await prisma.bookTable.delete({
         where:{

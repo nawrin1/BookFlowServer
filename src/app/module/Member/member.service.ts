@@ -1,4 +1,5 @@
 import {  MemberTable, PrismaClient } from "@prisma/client";
+import AppError from "../../errors/AppError";
 
 
 
@@ -20,11 +21,14 @@ const getAllMembersFromDB=async()=>{
 const getSingleMemberDB=async(id:any)=>{
 
 
-    const result=await prisma.memberTable.findUniqueOrThrow({
+    const result=await prisma.memberTable.findUnique({
         where:{
             memberId:id
         }
     })
+    if(!result){
+        throw new AppError(400,"Invalid member Id") 
+    }
 
 
     console.log(result,"single member data")
@@ -36,11 +40,14 @@ const getSingleMemberDB=async(id:any)=>{
 const updateSingleMemberFromDB=async(id:any,data:Partial<MemberTable>)=>{
 
 
-    await prisma.memberTable.findUniqueOrThrow({
+    const member=await prisma.memberTable.findUnique({
         where:{
            memberId:id
         }
     })
+    if(!member){
+        throw new AppError(400,"Invalid member Id") 
+    }
 
     const result=await prisma.memberTable.update({
         where:{
@@ -60,11 +67,14 @@ const updateSingleMemberFromDB=async(id:any,data:Partial<MemberTable>)=>{
 const deleteSingleMemberFromDB=async(id:any)=>{
 
 
-    await prisma.memberTable.findUniqueOrThrow({
+    const member=await prisma.memberTable.findUnique({
         where:{
            memberId:id
         }
     })
+    if(!member){
+        throw new AppError(400,"Invalid member Id") 
+    }
 
     const result=await prisma.memberTable.delete({
         where:{

@@ -1,6 +1,7 @@
 import express,{ Application, NextFunction, Request, Response } from "express";
 import cors from 'cors';
 import router from "./app/routes";
+import globalErrorHandler from "./app/middlewares/globalErrorHandlers";
 
 const app: Application = express();
 app.use(cors());
@@ -12,6 +13,8 @@ app.get('/', (req: Request, res: Response) => {
         Message: "Bookflow api running..."
     })
 }) 
+
+app.use(globalErrorHandler)
 
 
 app.use((req: Request, res: Response, next: NextFunction) => { 

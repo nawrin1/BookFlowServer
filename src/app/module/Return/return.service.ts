@@ -1,4 +1,5 @@
 import {  PrismaClient } from "@prisma/client";
+import AppError from "../../errors/AppError";
 
 
 
@@ -10,11 +11,15 @@ const returnBookDB=async(returnData:any )=>{
 
 
     const result = await prisma.$transaction(async (transactionClient) => {
-        await prisma.borrowRecordTable.findUniqueOrThrow({
+    const borrow=    await prisma.borrowRecordTable.findUnique({
             where: {
               borrowId: borrowId,
             },
           });
+    if(!borrow){
+      throw new AppError(400,"Invalid Borrow Id")
+      
+    }
            const returnData= await prisma.borrowRecordTable.update({
             where: {
              borrowId: borrowId,
