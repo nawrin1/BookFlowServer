@@ -55,7 +55,12 @@ Bookflow will support essential operations to streamline the library's managemen
    
   1. Set up environment. Your .env file should look like this
    ```
-   DATABASE_URL="postgresql://<postgresql username>:<postgresqlpass>@localhost:5432/<db name>?schema=public"       
+  DATABASE_URL="postgresql://postgres.fgaxjqlbvkivtgqqjrec:<pass>@aws-0-ap-south-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
+
+
+   DIRECT_URL="postgresql://postgres.fgaxjqlbvkivtgqqjrec:<pass>@aws-0-ap-south-1.pooler.supabase.com:5432/postgres"
+        
+   ENABLE_PRISMA_CACHING=false      
    ```
 ### Usage
    1. Run the project:
@@ -77,7 +82,9 @@ Bookflow will support essential operations to streamline the library's managemen
 
 
 ## LiveLink
-[BookFlow:book](https://book-flow-ashy.vercel.app)
+[BookFlow](https://book-flow-ashy.vercel.app)
+
+
 
 
 
