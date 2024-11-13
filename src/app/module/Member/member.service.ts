@@ -10,7 +10,7 @@ const getAllMembersFromDB=async()=>{
     const result=await prisma.memberTable.findMany()
 
 
-    console.log(result,"data")
+    // console.log(result,"data")
     return result
 
 
