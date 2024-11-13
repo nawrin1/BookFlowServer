@@ -22,17 +22,22 @@ const postBorrowBookDB=async(bookBorrowData:any )=>{
 
 
       
-        const result=await prisma.borrowRecordTable.create({
+        const borrowData=await prisma.borrowRecordTable.create({
             data:bookBorrowData
         })
 
        
-        const {returnDate,...other}=result
-        return other
+        
+        return borrowData
     
         
       });
+      const {returnDate,...other}=result
 
+
+
+
+      return other;
 
 }
 
